@@ -15,6 +15,7 @@ import NavbarUA from "./components/navbar.jsx";
 import Signup from "./components/Signup.jsx";
 import Login from "./components/Login.jsx";
 import Offers from "./components/Offers.jsx";
+import Test from "./components/Freelancer/FreeLancerSignupCopy.jsx";
 ///////////Routes///////////
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -105,6 +106,7 @@ class App extends React.Component {
           <Grid item xs={12}>
             <Route path="/" component={Home} exact={true} />
             <Route path="/Offers" component={Offers} />
+            <Route path="/Test" component={Test} />
             <Login Change={this.changeNavbar} />
             <Signup />
           </Grid>
