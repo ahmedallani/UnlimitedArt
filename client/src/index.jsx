@@ -25,12 +25,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       links: [
-        { display: "Home", path: "/", icon:"home" },
-        { display: "Offers", children: [{ display: "List", path: "/" }] , icon:"shopping_basket" },
-        { display: "About", path: "/About", icon:"info" },
+        { display: "Home", path: "/", icon: "home" },
+        {
+          display: "Offers",
+          children: [{ display: "List", path: "/" }],
+          icon: "shopping_basket",
+        },
+        { display: "About", path: "/About", icon: "info" },
         {
           display: "SignUp",
-          icon:"person_add",
+          icon: "person_add",
           children: [
             { display: "As FreeLancer", path: "/FreeLancerSignup" },
             { display: "As Client", path: "/ClientSignup" },
@@ -38,7 +42,7 @@ class App extends React.Component {
         },
         {
           display: "Login",
-          icon:"exit_to_app",
+          icon: "exit_to_app",
           children: [
             { display: "As FreeLancer", path: "/FreeLancerLogin" },
             { display: "As Client", path: "/ClientLogin" },
@@ -96,7 +100,7 @@ class App extends React.Component {
     return (
       <div>
         <Grid
-          style={{ flexGrow: "1",alignItems: "stretch" }}
+          style={{ flexGrow: "1", alignItems: "stretch" }}
           container
           direction="column"
           justify="center"
@@ -104,6 +108,7 @@ class App extends React.Component {
         >
           <Grid item xs={12}>
             <NavbarUA links={this.state.links} />
+            <Button />
           </Grid>
           <Grid item xs={12}>
             <Route path="/" component={Home} exact={true} />
