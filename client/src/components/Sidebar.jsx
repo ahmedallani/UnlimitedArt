@@ -8,18 +8,24 @@ import {
   ListItemIcon,
   ListItemText,
   Icon,
+  Collapse,
 } from "@material-ui/core";
+import StarBorder from "@material-ui/icons/StarBorder";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-const useStyles = makeStyles({
+import { NavLink } from "react-router-dom";
+const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
   },
   fullList: {
     width: "auto",
   },
-});
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
 
-export default function TemporaryDrawer({ state, setState }) {
+const ListLinks = ({ state }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(() => state.links.map(() => false));
   const handleClick = (index) => {
@@ -27,6 +33,72 @@ export default function TemporaryDrawer({ state, setState }) {
     arr[index] = !arr[index];
     setOpen(arr);
   };
+  return (
+    <div
+      className={classes.list}
+      role="presentation"
+      // onClick={toggleDrawer(anchor, false)}
+      // onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {state.links.map((link, index) => (
+          <React.Fragment key={index}>
+            <ListItem button onClick={() => handleClick(index)}>
+              <ListItemIcon>
+                {"icon" in link ? <Icon>{link.icon}</Icon> : ""}
+              </ListItemIcon>
+              <ListItemText primary={link.display} />
+              {"children" in link ? (
+                open[index] ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )
+              ) : (
+                ""
+              )}
+            </ListItem>
+            {"children" in link ? (
+              <Collapse in={open[index]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {link.children.map((child, key) => (
+                    <ListItem key={key} button className={classes.nested}>
+                      <ListItemText
+                        primary={
+                          <NavLink
+                            style={{
+                              color: "black",
+                              textDecoration: "none",
+                              paddingLeft: "50px",
+                            }}
+                            to={child.path}
+                          >
+                            {child.display}
+                          </NavLink>
+                        }
+                      />
+                    </ListItem>
+                  ))}
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <StarBorder />
+                    </ListItemIcon>
+                    <ListItemText primary="Starred" />
+                  </ListItem>
+                </List>
+              </Collapse>
+            ) : (
+              ""
+            )}
+          </React.Fragment>
+        ))}
+      </List>
+    </div>
+  );
+};
+export default function TemporaryDrawer({ state, setState }) {
+  console.log({ state });
+  const classes = useStyles();
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -37,51 +109,16 @@ export default function TemporaryDrawer({ state, setState }) {
 
     setState({ ...state, [anchor]: open });
   };
-
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {state.links.map((link, index) => (
-          <ListItem button key={index} onClick={() => handleClick(index)}>
-            <ListItemIcon>
-              {"icon" in link ? <Icon>{link.icon}</Icon> : ""}
-            </ListItemIcon>
-            <ListItemText primary={link.display} />
-            {"children" in link ? (
-              open[index] ? (
-                <ExpandLess />
-              ) : (
-                <ExpandMore />
-              )
-            ) : (
-              ""
-            )}
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
   return (
     <div>
-      {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+      <Drawer
+        variant="temporary"
+        anchor={"left"}
+        open={state["left"]}
+        onClose={toggleDrawer("left", false)}
+      >
+        <ListLinks classes={classes} state={state} />
+      </Drawer>
     </div>
   );
 }
