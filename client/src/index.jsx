@@ -25,7 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       links: [
-        { display: "Home", path: "/" },
+        { display: "Home", path: "/", icon:"home" },
         { display: "Offers", children: [{ display: "List", path: "/" }] },
         { display: "About", path: "/About" },
         {

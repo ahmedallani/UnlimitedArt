@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {Button,Menu,MenuItem,ListItemText} from "@material-ui/core";
+import {Button,Menu,MenuItem,ListItemText,Icon} from "@material-ui/core";
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {
   BrowserRouter as Router,
   Switch,
@@ -66,6 +67,7 @@ export default function CustomizedMenus(props) {
         variant="contained"
         color="primary"
         onClick={handleClick}
+        endIcon={<ArrowDropDownIcon />}
       >
         {props.display}
       </Button>

@@ -7,12 +7,19 @@ import {
   Button,
   IconButton,
   Hidden,
+  Icon,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "./menu.jsx";
 import Sidebar from "./Sidebar.jsx";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  navLink: {
+    color: "white",
+    textDecoration: "none",
   },
 }));
 
@@ -51,11 +62,15 @@ export default function ButtonAppBar({ links }) {
                 );
               } else {
                 return (
-                  <Link to={link.path} key={key}>
-                    <Button key={key} color="inherit">
+                  <NavLink className={classes.navLink} to={link.path} key={key}>
+                    <Button
+                      key={key}
+                      color="inherit"
+                      startIcon={"icon" in link ? <Icon>{link.icon}</Icon>: ""}
+                    >
                       {link.display}
                     </Button>
-                  </Link>
+                  </NavLink>
                 );
               }
             })}
