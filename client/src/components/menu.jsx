@@ -1,13 +1,8 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {Button,Menu,MenuItem,ListItemText,Icon} from "@material-ui/core";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { Button, Menu, MenuItem, ListItemText, Icon } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +12,7 @@ const useStyles = makeStyles({
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
-  }
+  },
 })((props) => (
   <Menu
     elevation={0}
@@ -42,12 +37,11 @@ const StyledMenuItem = withStyles((theme) => ({
         color: theme.palette.common.white,
       },
     },
-  }
+  },
 }))(MenuItem);
 
-export default function CustomizedMenus(props) {
+export default function CustomizedMenus({ link }) {
   const classes = useStyles();
-  console.log({ props });
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -67,9 +61,10 @@ export default function CustomizedMenus(props) {
         variant="contained"
         color="primary"
         onClick={handleClick}
+        startIcon={"icon" in link ? <Icon>{link.icon}</Icon>: ""}
         endIcon={<ArrowDropDownIcon />}
       >
-        {props.display}
+        {link.display}
       </Button>
       <StyledMenu
         id="customized-menu"
@@ -78,11 +73,14 @@ export default function CustomizedMenus(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {props.children.map((child, key) => (
-          
+        {link.children.map((child, key) => (
           <StyledMenuItem key={key}>
-
-<Link to={child.path}><ListItemText primary={child.display} /></Link>
+            <NavLink
+              style={{ color: "black", textDecoration: "none" }}
+              to={child.path}
+            >
+              <ListItemText primary={child.display} />
+            </NavLink>
           </StyledMenuItem>
         ))}
       </StyledMenu>

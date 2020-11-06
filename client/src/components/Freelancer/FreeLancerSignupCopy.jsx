@@ -1,262 +1,77 @@
-
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import  { useState } from 'react';
-import axios from "axios"
-import { withRouter } from "react-router";
-import SelectField from "../Elements/FreelancerField.jsx"
-import Footer from "../Footer.jsx"
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
   },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  nested: {
+    paddingLeft: theme.spacing(4),
   },
 }));
 
-
-export default withRouter(function SignInSide() {
-  const [Email, setEmail] = useState("")
-  const [Password, setPassword] = useState("")
-   const [repass, setrepass] = useState("")
-   const [Username, setUsername] = useState("")
-  const [Gender, setGender] = useState("")
-   const [Age, setAge] = useState(null)
-  const [City, setCity] = useState("")
-    const [Adresse, setAdresse] = useState("")
-  const [Field, setField] = useState("")
+export default function NestedList() {
   const classes = useStyles();
-const handleChange = function (e) {
-  console.log(e.target.name)
-    var Labels={"Email":setEmail,"Password":setPassword,"repass":setrepass,"Username":setUsername,"Gender":setGender,"Age":setAge,"City":setCity,"Adresse":setAdresse,"Field":setField}
-    Labels[e.target.name](e.target.value)
-  }
-  const field = function (field){
-    setField=field
-  }
-  const signup = function (e){
-     e.preventDefault();
-    let freelancerData = {
-      Username: Username,
-      Email:Email,
-      Password:Password,
-      Gender:Gender,
-      Age:Age,
-      City:City,
-      Adresse:Adresse,
-      Field:Field,
-    };
-    if (Password === repass) {
-      axios
-        .post("/api/freeLancers/Signup", freelancerData)
-        .then((data) => {
-          console.log(data.data);
-       if(data.data.Signup){
-		    props.history.push("/FreelancerLogin");
-	   }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }else{
-		alert("Check Password")
-	}
-  }
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
-    
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-          Freelancer  Sign In   
-          </Typography>
-          <form className={classes.form} onSubmit={signup} noValidate>
-          
-          <TextField
-          onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="Username"
-              label="Username"
-              name="Username"
-              autoComplete="email"
-              autoFocus
-            />
-
-            <TextField
-            onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="Email"
-              autoComplete="email"
-              autoFocus
-            />
-  <div id="FlexSignup">
-            <TextField
-            onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="Password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-
-              <TextField
-              onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="repass"
-              label="Password Again"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-  </div>
-
-  <div id="FlexSignup">
-<TextField
-onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="City"
-              label="city"
-              type="city"
-              id="city"
-              autoComplete="city"
-            />
-
-            <TextField
-            onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="Adresse"
-              label="adress"
-              type="adress"
-              id="adress"
-              autoComplete="adress"
-            />
-
-              
-  </div>
-
-  <TextField
-  onChange={handleChange}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="Age"
-              label="Age"
-              type="number"
-              id="Age"
-            />
-<SelectField onChange={setField}/>
-            <FormControlLabel
-            onChange={handleChange}
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-            Freelancer  Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
-        </div>
-      </Grid>
-    </Grid>
+    <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+      className={classes.root}
+    >
+      <ListItem button>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sent mail" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <DraftsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Drafts" />
+      </ListItem>
+      <ListItem button onClick={handleClick}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Inbox" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+    </List>
   );
-});
-
-
-
-
-
+}

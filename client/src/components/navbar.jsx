@@ -14,11 +14,7 @@ import Menu from "./menu.jsx";
 import Sidebar from "./Sidebar.jsx";
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  NavLink,
+  NavLink
 } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,10 +37,11 @@ export default function ButtonAppBar({ links }) {
   const classes = useStyles();
   const [stateSide, setStateSide] = React.useState({
     left: false,
+    links
   });
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             News
@@ -56,8 +53,7 @@ export default function ButtonAppBar({ links }) {
                 return (
                   <Menu
                     key={key}
-                    display={link.display}
-                    children={link.children}
+                    link={link}
                   />
                 );
               } else {
