@@ -28,19 +28,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar({ links }) {
   const classes = useStyles();
-
+  const [stateSide, setStateSide] = React.useState({
+    left: false,
+  });
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
@@ -66,9 +60,23 @@ export default function ButtonAppBar({ links }) {
               }
             })}
           </Hidden>
+          <Hidden smUp>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => {
+                console.log({ stateSide });
+                setStateSide({ ...stateSide, left: true });
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Sidebar state={stateSide} setState={setStateSide.bind(this)} />
+          </Hidden>
         </Toolbar>
       </AppBar>
-      <Sidebar/>
     </div>
   );
 }
