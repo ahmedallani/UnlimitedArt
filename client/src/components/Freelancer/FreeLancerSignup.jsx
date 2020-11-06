@@ -169,7 +169,7 @@ export default function SignInSide() {
             >
               Freelancer Sign Up
             </Button>
-            <G5rid container justify="flex-end">
+            <Grid container justify="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
                   Already have an account? Sign in
