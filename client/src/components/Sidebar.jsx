@@ -13,6 +13,14 @@ import {
 import StarBorder from "@material-ui/icons/StarBorder";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux'
+const mapStateToProps = ({ user, links }) => {
+  let type = "type" in user ? user.type : "visitor";
+  return {
+    links: links[type],
+  };
+};
+
 const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
@@ -25,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ListLinks = ({ state }) => {
+const ListLs = ({ links }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(() => state.links.map(() => false));
+  const [open, setOpen] = React.useState(() => links.map(() => false));
   const handleClick = (index) => {
     let arr = [...open];
     arr[index] = !arr[index];
@@ -41,7 +49,7 @@ const ListLinks = ({ state }) => {
       // onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {state.links.map((link, index) => (
+        {links.map((link, index) => (
           <React.Fragment key={index}>
             <ListItem button onClick={() => handleClick(index)}>
               <ListItemIcon>
@@ -96,6 +104,7 @@ const ListLinks = ({ state }) => {
     </div>
   );
 };
+const ListLinks =connect(mapStateToProps)(ListLs)
 export default function TemporaryDrawer({ state, setState }) {
   console.log({ state });
   const classes = useStyles();

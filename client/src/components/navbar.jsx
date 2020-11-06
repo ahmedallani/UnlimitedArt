@@ -12,6 +12,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "./menu.jsx";
 import Sidebar from "./Sidebar.jsx";
+import { connect } from 'react-redux'
 
 import {
   NavLink
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar({ links }) {
+function ButtonAppBar({ links }) {
   const classes = useStyles();
   const [stateSide, setStateSide] = React.useState({
     left: false,
@@ -91,3 +92,12 @@ export default function ButtonAppBar({ links }) {
     </div>
   );
 }
+
+const mapStateToProps = ({ user, links }) => {
+  let type = "type" in user ? user.type : "visitor";
+  return {
+    links: links[type],
+  };
+};
+
+export default connect(mapStateToProps)(ButtonAppBar);

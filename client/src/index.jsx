@@ -23,78 +23,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      links: [
-        { display: "Home", path: "/", icon: "home" },
-        {
-          display: "Offers",
-          children: [{ display: "List", path: "/" }],
-          icon: "shopping_basket",
-        },
-        { display: "About", path: "/About", icon: "info" },
-        {
-          display: "SignUp",
-          icon: "person_add",
-          children: [
-            { display: "As FreeLancer", path: "/FreeLancerSignup" },
-            { display: "As Client", path: "/ClientSignup" },
-          ],
-        },
-        {
-          display: "Login",
-          icon: "exit_to_app",
-          children: [
-            { display: "As FreeLancer", path: "/FreeLancerLogin" },
-            { display: "As Client", path: "/ClientLogin" },
-          ],
-        },
-      ],
-    };
-    this.changeNavbar = this.changeNavbar.bind(this);
-  }
-  changeNavbar(type) {
-    if (type == "client") {
-      this.setState({
-        links: [
-          { display: "Home", path: "/" },
-          {
-            display: "Offers",
-            children: [
-              { display: "List", path: "/" },
-              { display: "Posted Offers", path: "/" },
-              { display: "post offer", path: "/" },
-            ],
-          },
-          { display: "About", path: "/" },
-          {
-            display: "Account",
-            children: [{ display: "Profile", path: "/Profile" }],
-          },
-          { display: "Contact", path: "/" },
-          { display: "Logout", path: "/" },
-        ],
-      });
-    } else if (type == "freelancer") {
-      this.setState({
-        links: [
-          { display: "Home", path: "/" },
-          {
-            display: "Offers",
-            children: [
-              { display: "List", path: "/" },
-              { display: "Applications", path: "/" },
-            ],
-          },
-          { display: "About", path: "/" },
-          {
-            display: "Account",
-            children: [{ display: "Profile", path: "/Profile" }],
-          },
-          { display: "Contact", path: "/" },
-          { display: "Logout", path: "/" },
-        ],
-      });
-    }
+    this.state = {};
   }
   render() {
     return (
@@ -107,14 +36,13 @@ class App extends React.Component {
           alignItems="center"
         >
           <Grid item xs={12}>
-            <NavbarUA links={this.state.links} />
-            <Button />
+            <NavbarUA  />
           </Grid>
           <Grid item xs={12}>
             <Route path="/" component={Home} exact={true} />
             <Route path="/Offers" component={Offers} />
             <Route path="/Test" component={Test} />
-            <Login Change={this.changeNavbar} />
+            <Login />
             <Signup />
           </Grid>
           <Grid item xs={12}>

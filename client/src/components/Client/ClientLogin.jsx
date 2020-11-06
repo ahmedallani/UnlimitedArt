@@ -89,24 +89,25 @@ export default withRouter(
 
     const Login = function(event) {
       event.preventDefault();
-      axios({
-        url: "/api/Clients/Login",
-        method: "post",
-        data: {
-          Email: Email,
-          Password: Password,
-        },
-      })
-        .then((data) => {
-          console.log(data.data);
-          if (!data.data.Login) {
-            alert("Check Again");
-          } else {
-            props.history.push("/");
-            props.update(data.data.userData);
-          }
-        })
-        .catch((err) => console.log(err));
+      props.update({type:"client"});
+      // axios({
+      //   url: "/api/Clients/Login",
+      //   method: "post",
+      //   data: {
+      //     Email: Email,
+      //     Password: Password,
+      //   },
+      // })
+      //   .then((data) => {
+      //     console.log(data.data);
+      //     if (!data.data.Login) {
+      //       alert("Check Again");
+      //     } else {
+      //       props.history.push("/");
+      //       props.update(data.data.userData);
+      //     }
+      //   })
+      //   .catch((err) => console.log(err));
     };
     return (
       <Grid container component="main" className={classes.root}>

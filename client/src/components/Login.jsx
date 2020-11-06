@@ -1,37 +1,33 @@
-import React from "react"
+import React from "react";
 
-   //////React-router/////
+//////React-router/////
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-      //////Client/////
- import ClientLogin from "./Client/ClientLogin.jsx"
+//////Client/////
+import ClientLogin from "./Client/ClientLogin.jsx";
 
-    //////FreeLancer/////
-import FreelancerLogin from "./Freelancer/FreelancerLogin.jsx"      
-            
+//////FreeLancer/////
+import FreelancerLogin from "./Freelancer/FreelancerLogin.jsx";
+
 class Login extends React.Component {
-    constructor(props){
-        super(props)
-        this.state={}
-    }
-render() {
-        return <div>
-         <Switch>
-         <Route path="/ClientLogin">
-            <ClientLogin change={this.props.Change}/>
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div>
+        <Switch>
+          <Route path="/ClientLogin">
+            <ClientLogin change={this.props.Change} />
           </Route>
           <Route path="/FreelancerLogin">
-            <FreelancerLogin change={this.props.Change}/>
+            <FreelancerLogin  />
           </Route>
-         </Switch>
-              </div>
-  } 
+        </Switch>
+      </div>
+    );
+  }
 }
-export default Login
-
+export default Login;
