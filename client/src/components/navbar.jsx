@@ -6,16 +6,13 @@ import {
   Typography,
   Button,
   IconButton,
+  Hidden,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "./menu.jsx";
+import Sidebar from "./Sidebar.jsx";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  }
+  },
 }));
 
 export default function ButtonAppBar({ links }) {
@@ -47,26 +44,31 @@ export default function ButtonAppBar({ links }) {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
-          {links.map((link, key) => {
-            if ("children" in link) {
-              return (
-                <Menu
-                  key={key}
-                  display={link.display}
-                  children={link.children}
-                />
-              );
-            } else {
-              return (
-                <Link to={link.path}  key={key}>
-                <Button key={key} color="inherit">
-                  {link.display}
-                </Button></Link>
-              );
-            }
-          })}
+
+          <Hidden xsDown>
+            {links.map((link, key) => {
+              if ("children" in link) {
+                return (
+                  <Menu
+                    key={key}
+                    display={link.display}
+                    children={link.children}
+                  />
+                );
+              } else {
+                return (
+                  <Link to={link.path} key={key}>
+                    <Button key={key} color="inherit">
+                      {link.display}
+                    </Button>
+                  </Link>
+                );
+              }
+            })}
+          </Hidden>
         </Toolbar>
       </AppBar>
+      <Sidebar/>
     </div>
   );
 }
